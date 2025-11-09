@@ -18,51 +18,29 @@ $username = $input['username'];
 $password = $input['password'];
 
 // Call stored procedure
-if (!$stmt = $connection->prepare("CALL CheckUserCredentialsFlag(?, ?, @p_isValid)")) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Prepare failed: " . $connection->error
-    ]);
-    exit;
-}
-
+$stmt = $connection->prepare("CALL CheckUserCredentialsFlag(?, ?)");
 $stmt->bind_param("ss", $username, $password);
-if (!$stmt->execute()) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Execution failed: " . $stmt->error
-    ]);
-    $stmt->close();
-    $connection->close();
-    exit;
-}
-$stmt->close();
+$stmt->execute();
+$result = $stmt->get_result();
+$userData = $result->fetch_assoc();
 
-// Fetch OUT parameter
-$result = $connection->query("SELECT @p_isValid AS isValid");
-$row = $result->fetch_assoc();
-$isValid = (int)$row['isValid'];
-
-if ($isValid) {
-    // Fetch user details
-    $query = $connection->prepare("SELECT firstname, lastname, status FROM users WHERE username = ?");
-    $query->bind_param("s", $username);
-    $query->execute();
-    $userResult = $query->get_result();
-    $userData = $userResult->fetch_assoc();
-
+if ($userData) {
+    // Login successful
     echo json_encode([
         "success" => true,
         "message" => "Login successful",
         "firstname" => $userData['firstname'],
         "lastname" => $userData['lastname'],
-        "status" => $userData['status'] // e.g. Admin / User
+        "status" => $userData['status']
     ]);
 } else {
+    // Login failed
     echo json_encode([
         "success" => false,
         "message" => "Invalid username or password"
     ]);
 }
+
+$stmt->close();
 
 $connection->close();
