@@ -202,14 +202,13 @@ function openAddpaymentForm() {
 
 // Open modal for editing an existing payment
 function openEditpaymentForm(payment) {
-  alert("openEditpaymentForm"); 
   isEditing = true;
   document.getElementById("formTitle").textContent = "✏️ Edit payment";
   const form = document.getElementById("paymentForm");
 
   // Fill form with existing values
   form.action.value = "edit";
-  //form.paymentid.value = payment.paymentid; // assuming API provides ID
+  form.paymentid.value = payment.paymentid; // assuming API provides ID
   form.paymentnumber.value = payment.paymentnumber;
   form.firstname.value = payment.firstname;
   form.middlename.value = payment.middlename;

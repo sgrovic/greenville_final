@@ -74,7 +74,6 @@
 <body>
   <div class="header">
     <h1>Enrollment System</h1>
-    <button class="logout-btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
   </div>
 
   <div class="sidebar">
@@ -114,7 +113,7 @@
         //main.innerHTML = "<h2>Student List</h2><p>Student table will load here.</p>";
         const response = await fetch("Payment.php");
         main.innerHTML = await response.text();
-        //loadStudents(); // defined in students.js
+        loadpayments(); // defined in payments.js
       } else if (page === "students") {
         //main.innerHTML = "<h2>Student List</h2><p>Student table will load here.</p>";
         const response = await fetch("Students.php");
@@ -152,6 +151,7 @@
   
   </script>
 
+  <script src="payment.js"></script>
   <script src="students.js"></script>
   <script src="users.js"></script>  
 </body>

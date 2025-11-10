@@ -299,10 +299,7 @@ document.addEventListener("submit", async (e) => {
 function editFromRowStudents(button) {
   const row = button.closest("tr");
   const cells = row.querySelectorAll("td");
-
-  alert("1 ✅" + cells[1].textContent);
-  alert("2 ✅" + cells[2].textContent);
-  alert("3 ✅" + cells[3].textContent);
+  
   // Build student object from row values
   const student = {
     //studentid: cells[0].textContent,

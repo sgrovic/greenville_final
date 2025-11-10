@@ -1,19 +1,3 @@
-<?php
-// Example: Fetch student/payment details from database
-// (replace this with your actual DB query)
-$student = [
-    "studentnumber" => "2025-001",
-    "name"          => "Juan Dela Cruz",
-    "program"       => "BS Computer Science",
-    "schoolyear"    => "2025-2026",
-    "paymentmode"   => "Cash",
-    "tuitionfee"    => 20000,
-    "miscellaneous" => 5000,
-    "downpayment"   => 5000
-];
-$student["total"]   = $student["tuitionfee"] + $student["miscellaneous"];
-$student["balance"] = $student["total"] - $student["downpayment"];
-?>
 <div class="student-container">
   <h2>Payment</h2>
 
@@ -41,7 +25,7 @@ $student["balance"] = $student["total"] - $student["downpayment"];
 -->
       </tr>
     </thead>
-    <tbody id="studentTableBody">
+    <tbody id="paymentTableBody">
       <tr><td colspan="10" style="text-align:center;">Loading...</td></tr>
     </tbody>
   </table>
